@@ -1,0 +1,8 @@
+node_modules
+dist
+out
+.idea
+.vscode
+*.log*
+package-lock.json
+
