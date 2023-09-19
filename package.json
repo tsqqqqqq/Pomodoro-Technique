@@ -1,9 +1,9 @@
 {
   "name": "pomodoro-technique",
   "version": "1.0.0",
-  "description": "An Electron application with Vue",
+  "description": "这是一个基于番茄工作法的TODO LIST应用",
   "main": "./dist/main/index.js",
-  "author": "example.com",
+  "author": "Ken",
   "homepage": "https://www.electronjs.org",
   "scripts": {
     "format": "prettier --write .",
