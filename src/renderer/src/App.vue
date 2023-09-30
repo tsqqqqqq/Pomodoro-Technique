@@ -1,9 +1,9 @@
 <script setup>
-import Versions from './components/Versions.vue'
+import Date from './components/Date.vue'
 </script>
 
 <template>
-  <Versions></Versions>
+  <Date />
 </template>
 
 <style lang="less">

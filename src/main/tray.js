@@ -1,3 +1,5 @@
+import { mainWindow } from './index'
+
 const { app, Tray, nativeImage, Menu } = require('electron')
 import Date from './common/date'
 
@@ -40,7 +42,9 @@ let contextMenu = [
     label: 'Done',
     type: 'normal',
     icon: nativeImage.createFromPath(path.join(__dirname, `${resources_path}done.png`)),
-    click() {}
+    click() {
+
+    }
   },
   {
     type: 'separator'
@@ -80,6 +84,7 @@ const start = () => {
       running_time--
       const date = Date.format(running_time)
       tray.setTitle(date)
+      mainWindow.webContents.send('isWorking', true)
     }, 1000)
     is_working = !is_working
     const menuItem = contextMenu.find((item) => item.label === 'Start')
@@ -123,4 +128,8 @@ const update_tray_menu = () => {
   tray.setContextMenu(menu)
 }
 
-export { createTray }
+const get_current_date = () => {
+  return Date.format(running_time)
+}
+
+export { createTray, get_current_date }

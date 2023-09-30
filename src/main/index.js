@@ -3,11 +3,12 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { createTray } from './tray'
+import IpcHandle from './handle'
 
-
+let mainWindow
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -15,7 +16,8 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      nodeIntegration: true
     }
   })
 
@@ -43,7 +45,6 @@ function createWindow() {
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
-  createTray()
   // console.log(tray)
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -53,6 +54,8 @@ app.whenReady().then(() => {
   })
 
   createWindow()
+  createTray()
+  IpcHandle()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -72,3 +75,4 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+export { mainWindow }
